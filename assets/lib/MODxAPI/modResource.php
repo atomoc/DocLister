@@ -301,7 +301,7 @@ class modResource extends MODxAPI
         return $this;
     }
 
-    public function edit($id)
+    public function edit($id, $touch=true)
     {
         $id = is_scalar($id) ? trim($id) : '';
         if ($this->getID() != $id) {
@@ -318,7 +318,9 @@ class modResource extends MODxAPI
                 $this->id = null;
             } else {
                 $this->id = $this->field['id'];
-                $this->set('editedby', null)->touch();
+                $this->set('editedby', null);
+                if ($touch)
+                	$this->touch();
             }
             unset($this->field['id']);
         }
